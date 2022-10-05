@@ -4,7 +4,11 @@ import { Layout } from "layout";
 const Register: NextPage = () => {
   return (
     <Layout>
-      <h1>Hello, Register!</h1>
+      <main className="p-4">
+        <div className="container mx-auto">
+          <h1>Hello, Register!</h1>
+        </div>
+      </main>
     </Layout>
   );
 };
