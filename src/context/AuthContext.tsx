@@ -12,14 +12,9 @@ import {
   signOut,
 } from "@firebase/auth";
 import { auth } from "utils/firebase";
+import { User } from "types/User";
 
 type AuthProviderProps = { children: ReactNode };
-
-type User = {
-  uid: string;
-  email: string | null;
-  displayName: string | null;
-} | null;
 
 const AuthContext = createContext<any>({});
 
