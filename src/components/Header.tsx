@@ -21,7 +21,13 @@ export const Header = () => {
               <a>Home</a>
             </Link>
           </li>
+
           <li className="px-4">
+            <Link href="/dashboard">
+              <a>Dashboard</a>
+            </Link>
+          </li>
+          <li className="px-4 border-l-2 border-gray-900">
             {user ? (
               <button
                 type="button"
@@ -41,11 +47,6 @@ export const Header = () => {
                 <a>Login</a>
               </Link>
             )}
-          </li>
-          <li className="px-4 border-l-2 border-gray-900">
-            <Link href="/dashboard">
-              <a>Dashboard</a>
-            </Link>
           </li>
         </ul>
       </header>
