@@ -2,12 +2,14 @@ import { useState } from "react";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { Layout } from "layout";
+import { useAuth } from "context/AuthContext";
 
 const Register: NextPage = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmation, setConfirmation] = useState<string>("");
 
+  const { register } = useAuth();
   const router = useRouter();
 
   return (
@@ -20,9 +22,12 @@ const Register: NextPage = () => {
             onSubmit={async (e) => {
               e.preventDefault();
 
-              console.log("Submitting form...");
-
-              await router.push("/dashboard");
+              try {
+                await register(email, password);
+                await router.push("/dashboard");
+              } catch (error) {
+                console.log(error);
+              }
             }}
           >
             <div className="mb-4">

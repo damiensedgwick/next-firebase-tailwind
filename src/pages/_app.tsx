@@ -1,21 +1,23 @@
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import "styles/globals.css";
+import { AuthProvider } from "context/AuthContext";
+import ProtectedRoute from "components/ProtectedRoute";
 
 const protectedRoutes = ["/dashboard"];
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   return (
-    <div>
+    <AuthProvider>
       {protectedRoutes.includes(router.pathname) ? (
-        <div>
+        <ProtectedRoute>
           <Component {...pageProps} />
-        </div>
+        </ProtectedRoute>
       ) : (
         <Component {...pageProps} />
       )}
-    </div>
+    </AuthProvider>
   );
 }
 

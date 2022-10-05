@@ -1,6 +1,11 @@
 import Link from "next/link";
+import { useAuth } from "context/AuthContext";
+import { useRouter } from "next/router";
 
 export const Header = () => {
+  const { user, logout } = useAuth();
+  const router = useRouter();
+
   return (
     <div className="py-4  border-b-2 border-gray-900">
       <header className="container mx-auto flex flex-row items-center justify-between">
@@ -17,9 +22,25 @@ export const Header = () => {
             </Link>
           </li>
           <li className="px-4">
-            <Link href="/login">
-              <a>Login</a>
-            </Link>
+            {user ? (
+              <button
+                type="button"
+                onClick={async () => {
+                  try {
+                    await logout();
+                    await router.push("/login");
+                  } catch (error) {
+                    console.log(error);
+                  }
+                }}
+              >
+                Logout
+              </button>
+            ) : (
+              <Link href="/login">
+                <a>Login</a>
+              </Link>
+            )}
           </li>
           <li className="px-4 border-l-2 border-gray-900">
             <Link href="/dashboard">

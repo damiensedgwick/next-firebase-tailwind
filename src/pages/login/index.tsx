@@ -1,12 +1,15 @@
-import type { NextPage } from "next";
-import { Layout } from "layout";
 import { useState } from "react";
+import type { NextPage } from "next";
+import Link from "next/link";
+import { Layout } from "layout";
 import { useRouter } from "next/router";
+import { useAuth } from "../../context/AuthContext";
 
 const Login: NextPage = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
+  const { login } = useAuth();
   const router = useRouter();
 
   return (
@@ -19,9 +22,14 @@ const Login: NextPage = () => {
             onSubmit={async (e) => {
               e.preventDefault();
 
-              console.log("Submitting form...");
+              e.preventDefault();
 
-              await router.push("/dashboard");
+              try {
+                await login(email, password);
+                await router.push("/dashboard");
+              } catch (error) {
+                console.log(error);
+              }
             }}
           >
             <div className="mb-4">
@@ -55,6 +63,13 @@ const Login: NextPage = () => {
               </button>
             </div>
           </form>
+
+          <p className="text-center">
+            Need an account?{" "}
+            <Link href="/register">
+              <a>Register</a>
+            </Link>
+          </p>
         </div>
       </main>
     </Layout>
