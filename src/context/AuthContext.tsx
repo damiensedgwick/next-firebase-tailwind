@@ -20,20 +20,6 @@ type User = {
   email: string | null;
   displayName: string | null;
 } | null;
-//
-// const AuthContext = createContext<{
-//   user: User;
-//   register: any;
-//   login: any;
-//   logout: any;
-//   loading: boolean;
-// } | null>({
-//   user: null,
-//   loading: true,
-//   login: () => {},
-//   register: () => {},
-//   logout: () => {},
-// });
 
 const AuthContext = createContext<any>({});
 
