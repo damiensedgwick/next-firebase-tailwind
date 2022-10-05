@@ -7,7 +7,6 @@ import { useAuth } from "context/AuthContext";
 const Register: NextPage = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [confirmation, setConfirmation] = useState<string>("");
 
   const { register } = useAuth();
   const router = useRouter();
@@ -52,17 +51,7 @@ const Register: NextPage = () => {
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div className="mb-4">
-              <label htmlFor="confirmation" />
-              <input
-                className="w-full p-2 border-2 border-gray-900"
-                name="confirmation"
-                type="password"
-                placeholder="Password Confirmation"
-                value={confirmation}
-                onChange={(e) => setConfirmation(e.target.value)}
-              />
-            </div>
+
             <div className="mb-4">
               <button
                 className="w-full py-2 px-6 text-gray-50 bg-gray-900"
