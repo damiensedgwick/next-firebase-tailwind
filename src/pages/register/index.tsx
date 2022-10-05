@@ -18,7 +18,7 @@ const Register: NextPage = () => {
         <div className="container mx-auto">
           <h1 className="text-2xl text-center">Register Your Account</h1>
           <form
-            className="w-1/2 mt-4 mx-auto"
+            className="w-3/4 max-w-md mt-4 mx-auto"
             onSubmit={async (e) => {
               e.preventDefault();
 
