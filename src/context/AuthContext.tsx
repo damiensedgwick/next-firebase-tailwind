@@ -10,17 +10,37 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  UserCredential,
 } from "@firebase/auth";
 import { auth } from "utils/firebase";
-import { User } from "types/User";
 
-type AuthProviderProps = { children: ReactNode };
+const AuthContext = createContext<{
+  user: {
+    uid: string;
+    email: string | null;
+    displayName: string | null;
+  } | null;
+  loading: boolean;
+  login: (email: string, password: string) => Promise<UserCredential>;
+  logout: () => Promise<void>;
+  register: (email: string, password: string) => Promise<UserCredential>;
+}>({
+  user: null,
+  loading: true,
+  login: (email: string, password: string) =>
+    signInWithEmailAndPassword(auth, email, password),
+  logout: () => Promise.resolve(),
+  register: (email, password) =>
+    createUserWithEmailAndPassword(auth, email, password),
+});
 
-const AuthContext = createContext<any>({});
-
-export const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [user, setUser] = useState<User>(null);
+export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true);
+  const [user, setUser] = useState<{
+    uid: string;
+    email: string | null;
+    displayName: string | null;
+  } | null>(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -40,22 +60,23 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     return () => unsubscribe();
   }, []);
 
-  const register = (email: string, password: string) => {
-    return createUserWithEmailAndPassword(auth, email, password);
-  };
-
   const login = (email: string, password: string) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   const logout = async () => {
     setUser(null);
-    await signOut(auth);
+
+    return await signOut(auth);
+  };
+
+  const register = (email: string, password: string) => {
+    return createUserWithEmailAndPassword(auth, email, password);
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
-      {loading ? <h1>Loading...</h1> : children}
+    <AuthContext.Provider value={{ loading, user, login, logout, register }}>
+      {loading ? null : children}
     </AuthContext.Provider>
   );
 };

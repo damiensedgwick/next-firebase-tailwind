@@ -8,6 +8,7 @@ const protectedRoutes = ["/dashboard"];
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
+
   return (
     <AuthProvider>
       {protectedRoutes.includes(router.pathname) ? (
