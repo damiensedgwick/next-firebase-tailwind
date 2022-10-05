@@ -22,8 +22,6 @@ const Login: NextPage = () => {
             onSubmit={async (e) => {
               e.preventDefault();
 
-              e.preventDefault();
-
               try {
                 await login(email, password);
                 await router.push("/dashboard");
