@@ -9,9 +9,9 @@ export const Header = () => {
   return (
     <div className="py-4  border-b-2 border-gray-900">
       <header className="container mx-auto flex flex-row items-center justify-between">
-        <h1>
+        <h1 className="px-4">
           <Link href="/">
-            <a>Home</a>
+            <a>NFT</a>
           </Link>
         </h1>
 
