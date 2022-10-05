@@ -11,15 +11,12 @@ import {
   signInWithEmailAndPassword,
   signOut,
   UserCredential,
+  User,
 } from "@firebase/auth";
 import { auth } from "utils/firebase";
 
 const AuthContext = createContext<{
-  user: {
-    uid: string;
-    email: string | null;
-    displayName: string | null;
-  } | null;
+  user: User | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<UserCredential>;
   logout: () => Promise<void>;
@@ -36,20 +33,12 @@ const AuthContext = createContext<{
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [user, setUser] = useState<{
-    uid: string;
-    email: string | null;
-    displayName: string | null;
-  } | null>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        setUser({
-          uid: user.uid,
-          email: user.email,
-          displayName: user.displayName,
-        });
+        setUser(user);
       } else {
         setUser(null);
       }
