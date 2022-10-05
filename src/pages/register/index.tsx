@@ -4,11 +4,9 @@ import { useRouter } from "next/router";
 import { Layout } from "layout";
 
 const Register: NextPage = () => {
-  const [email, setEmail] = useState<undefined | string>(undefined);
-  const [password, setPassword] = useState<undefined | string>(undefined);
-  const [confirmation, setConfirmation] = useState<undefined | string>(
-    undefined
-  );
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmation, setConfirmation] = useState<string>("");
 
   const router = useRouter();
 

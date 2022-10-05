@@ -4,8 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 
 const Login: NextPage = () => {
-  const [email, setEmail] = useState<undefined | string>(undefined);
-  const [password, setPassword] = useState<undefined | string>(undefined);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
 
   const router = useRouter();
 
